@@ -31,6 +31,7 @@ sudo systemctl enable mariadb
 ```
 sudo firewall-cmd --permanent --zone=public --add-port=3306/tcp
 sudo firewall-cmd --reload
+sudo firewall-cmd --list-all
 ```
 
 3. Configure Database
@@ -64,6 +65,10 @@ Run sql script
 ```
 
 sudo mysql < db-load-script.sql
+sudo mysql
+>show databases;
+>use ecomdb;
+>select * from products;
 ```
 
 
