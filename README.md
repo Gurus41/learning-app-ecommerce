@@ -192,7 +192,7 @@ sudo systemctl restart httpd
 ```
 curl http://localhost
 
-Outup
+Output
 ✅ Connected to DB successfully!
 
 ```
