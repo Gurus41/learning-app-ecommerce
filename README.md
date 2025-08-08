@@ -51,7 +51,7 @@ MariaDB > FLUSH PRIVILEGES;
 Create the db-load-script.sql
 
 ```
-cat > db-load-script.sql <<-EOF
+sudo cat > db-load-script.sql <<-EOF
 USE ecomdb;
 CREATE TABLE products (id mediumint(8) unsigned NOT NULL auto_increment,Name varchar(255) default NULL,Price varchar(255) default NULL, ImageUrl varchar(255) default NULL,PRIMARY KEY (id)) AUTO_INCREMENT=1;
 
@@ -136,7 +136,10 @@ sudo sed -i 's/172.20.1.101/localhost/g' /var/www/html/index.php
    DB_NAME=ecomdb
    EOF
 
-6. Update `index.php`
+   sudo chown apache:apache /var/www/html/.env
+   sudo chmod 644 /var/www/html/.env
+
+6. Edit /var/www/html/index.php and ensure it includes this at the top: `index.php`
 
    Update the `index.php` file to load the environment variables from the `.env` file and use them to connect to the database.
 
@@ -177,8 +180,19 @@ sudo sed -i 's/172.20.1.101/localhost/g' /var/www/html/index.php
    ON a multi-node setup, remember to provide the IP address of the database server in the .env file.
 
 
-7. Test
+7.Restart Everything
+
+```
+sudo systemctl restart mariadb
+sudo systemctl restart httpd
+```
+
+8. Test
 
 ```
 curl http://localhost
+
+Outup
+✅ Connected to DB successfully!
+
 ```
